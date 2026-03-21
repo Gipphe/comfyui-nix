@@ -273,23 +273,23 @@
         };
 
         overlays.default = final: prev: {
-          comfyui-nix = self.legacyPackages.${final.system};
-          comfyui = self.packages.${final.system}.default;
-          comfy-ui = self.packages.${final.system}.default;
+          comfyui-nix = self.legacyPackages.${final.stdenv.hostPlatform.system};
+          comfyui = self.packages.${final.stdenv.hostPlatform.system}.default;
+          comfy-ui = self.packages.${final.stdenv.hostPlatform.system}.default;
           # CUDA variant (x86_64 Linux only) - uses pre-built wheels supporting all GPU architectures
           comfy-ui-cuda =
             if final.stdenv.isLinux && final.stdenv.isx86_64 then
-              self.packages.${final.system}.cuda
+              self.packages.${final.stdenv.hostPlatform.system}.cuda
             else
               throw "comfy-ui-cuda is only available on x86_64 Linux";
           # ROCm variant (x86_64 Linux only) - uses pre-built wheels supporting all GPU architectures
           comfy-ui-rocm =
             if final.stdenv.isLinux && final.stdenv.isx86_64 then
-              self.packages.${final.system}.rocm
+              self.packages.${final.stdenv.hostPlatform.system}.rocm
             else
               throw "comfy-ui-rocm is only available on x86_64 Linux";
           # Add custom nodes to overlay
-          comfyui-custom-nodes = self.legacyPackages.${final.system}.customNodes;
+          comfyui-custom-nodes = self.legacyPackages.${final.stdenv.hostPlatform.system}.customNodes;
         };
 
         nixosModules.default =

@@ -285,9 +285,9 @@ Add ComfyUI as a package in your system configuration:
 ```nix
 { pkgs, inputs, ... }: {
   environment.systemPackages = [
-    inputs.comfyui-nix.packages.${pkgs.system}.default  # CPU
-    # inputs.comfyui-nix.packages.${pkgs.system}.cuda   # CUDA (Linux)
-    # inputs.comfyui-nix.packages.${pkgs.system}.rocm   # ROCm (Linux)
+    inputs.comfyui-nix.packages.${pkgs.stdenv.hostPlatform.system}.default  # CPU
+    # inputs.comfyui-nix.packages.${pkgs.stdenv.hostPlatform.system}.cuda   # CUDA (Linux)
+    # inputs.comfyui-nix.packages.${pkgs.stdenv.hostPlatform.system}.rocm   # ROCm (Linux)
   ];
 }
 ```
