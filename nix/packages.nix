@@ -239,20 +239,20 @@ let
     pkgs.glib
     pkgs.libGL
     # X11 / XCB runtime libs (fixes: libxcb.so.1 not found)
-    pkgs.xorg.libxcb
-    pkgs.xorg.libX11
-    pkgs.xorg.libXext
-    pkgs.xorg.libXrender
-    pkgs.xorg.libXfixes
-    pkgs.xorg.libXi
-    pkgs.xorg.libXrandr
-    pkgs.xorg.libXcursor
-    pkgs.xorg.libXcomposite
-    pkgs.xorg.libXdamage
-    pkgs.xorg.libXau
-    pkgs.xorg.libXdmcp
-    pkgs.xorg.libSM
-    pkgs.xorg.libICE
+    pkgs.libxcb
+    pkgs.libx11
+    pkgs.libxext
+    pkgs.libxrender
+    pkgs.libxfixes
+    pkgs.libxi
+    pkgs.libxrandr
+    pkgs.libxcursor
+    pkgs.libxcomposite
+    pkgs.libxdamage
+    pkgs.libxau
+    pkgs.libxdmcp
+    pkgs.libsm
+    pkgs.libice
     pkgs.libxkbcommon
   ];
 
