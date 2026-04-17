@@ -657,24 +657,24 @@ lib.optionalAttrs useCuda {
 }
 
 # color-matcher - not in older nixpkgs, needed for KJNodes
-// {
-  "color-matcher" = final.buildPythonPackage rec {
-    pname = "color-matcher";
-    version = versions.vendored."color-matcher".version;
-    format = "wheel";
-    src = pkgs.fetchurl {
-      url = versions.vendored."color-matcher".url;
-      hash = versions.vendored."color-matcher".hash;
-    };
-    propagatedBuildInputs = with final; [
-      numpy
-      pillow
-      scipy
-    ];
-    doCheck = false;
-    pythonImportsCheck = [ "color_matcher" ];
-  };
-}
+# // {
+#   "color-matcher" = final.buildPythonPackage rec {
+#     pname = "color-matcher";
+#     version = versions.vendored."color-matcher".version;
+#     format = "wheel";
+#     src = pkgs.fetchurl {
+#       url = versions.vendored."color-matcher".url;
+#       hash = versions.vendored."color-matcher".hash;
+#     };
+#     propagatedBuildInputs = with final; [
+#       numpy
+#       pillow
+#       scipy
+#     ];
+#     doCheck = false;
+#     pythonImportsCheck = [ "color_matcher" ];
+#   };
+# }
 
 # facexlib - face processing library needed by PuLID
 # Patched to support FACEXLIB_MODELPATH env var for read-only Nix store compatibility
