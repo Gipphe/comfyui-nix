@@ -6,9 +6,6 @@
   gpuSupport ? "none", # "none", "cuda", "rocm"
 }:
 let
-  useCuda = gpuSupport == "cuda" && pkgs.stdenv.isLinux;
-  useRocm = gpuSupport == "rocm" && pkgs.stdenv.isLinux;
-
   python = pkgs.python312.override { packageOverrides = pythonOverrides; };
 
   vendored = import ./vendored-packages.nix { inherit pkgs python versions; };
