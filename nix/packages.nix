@@ -36,14 +36,7 @@ let
   };
 
   # Import custom nodes for bundling
-  customNodes = import ./custom-nodes.nix {
-    inherit
-      pkgs
-      lib
-      python
-      versions
-      ;
-  };
+  customNodes = import ./custom-nodes { inherit pkgs versions; };
 
   comfyuiSrcRaw = pkgs.fetchFromGitHub {
     owner = "Comfy-Org";

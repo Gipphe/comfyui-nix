@@ -141,11 +141,7 @@
           pythonEnv = mkPythonEnv pkgs;
 
           # Custom nodes with bundled dependencies
-          customNodes = import ./nix/custom-nodes.nix {
-            inherit pkgs versions;
-            lib = pkgs.lib;
-            python = mkPython pkgs "none";
-          };
+          customNodes = import ./nix/custom-nodes { inherit pkgs versions; };
 
           source = pkgs.lib.cleanSourceWith {
             src = ./.;

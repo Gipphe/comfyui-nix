@@ -71,7 +71,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - **apps.nix**: Flake app definitions (run, update, Docker build commands)
   - **docker.nix**: Docker image builders
   - **checks.nix**: CI check definitions (ruff, pyright, nixfmt, shellcheck)
-  - **custom-nodes.nix**: Bundled custom node package definitions
+  - **custom-nodes/default.nix**: Bundled custom node package definitions
   - **modules/comfyui.nix**: NixOS service module with declarative custom nodes
   - **lib/custom-nodes.nix**: Helper functions for custom node management
 - **scripts/**: Maintenance scripts (update-template-inputs.sh, push-to-cachix.sh, download-pulid-models.sh)
