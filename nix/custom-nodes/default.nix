@@ -15,7 +15,7 @@
   impact-pack = pkgs.callPackage ./impact-pack.nix { inherit versions; };
 
   # rgthree-comfy - Quality of life nodes
-  rgthree-comfy = pkgs.callPackge ./rgthree-comfy.nix { inherit versions; };
+  rgthree-comfy = pkgs.callPackage ./rgthree-comfy.nix { inherit versions; };
 
   # KJNodes - Utility nodes
   kjnodes = pkgs.callPackage ./kjnodes.nix { inherit versions; };
