@@ -4,6 +4,7 @@
   versions,
   pythonOverrides,
   gpuSupport ? "none", # "none", "cuda", "rocm"
+  extraPythonDeps ? _: [ ],
 }:
 let
   python = pkgs.python312.override { packageOverrides = pythonOverrides; };
@@ -217,7 +218,7 @@ let
           vendored.sageattention
         ];
     in
-    base ++ extras ++ optionals
+    base ++ extras ++ optionals ++ extraPythonDeps ps
   );
 
   frontendRoot = "${pythonRuntime}/${python.sitePackages}/comfyui_frontend_package/static";

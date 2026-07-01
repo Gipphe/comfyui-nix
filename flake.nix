@@ -16,6 +16,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-comfy.url = "github:NixOS/nixpkgs/c0b0e0fddf73fd517c3471e546c0df87a42d53f4";
     flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
@@ -27,6 +28,24 @@
     }:
     let
       versions = import ./nix/versions.nix;
+
+      pythonOverridesFor =
+        pkgs: gpuSupport: import ./nix/python-overrides.nix { inherit pkgs versions gpuSupport; };
+
+      mkComfyPackages =
+        pkgs:
+        {
+          gpuSupport ? "none",
+        }:
+        import ./nix/packages.nix {
+          inherit
+            pkgs
+            versions
+            gpuSupport
+            ;
+          lib = pkgs.lib;
+          pythonOverrides = pythonOverridesFor pkgs gpuSupport;
+        };
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
       # Supported systems: Linux (x86_64, aarch64), macOS (Intel, Apple Silicon)
@@ -93,9 +112,6 @@
             };
           };
 
-          pythonOverridesFor =
-            pkgs: gpuSupport: import ./nix/python-overrides.nix { inherit pkgs versions gpuSupport; };
-
           mkPython =
             pkgs: gpuSupport:
             pkgs.python312.override { packageOverrides = pythonOverridesFor pkgs gpuSupport; };
@@ -110,21 +126,6 @@
               ps.wheel
               ps.pip
             ]);
-
-          mkComfyPackages =
-            pkgs:
-            {
-              gpuSupport ? "none",
-            }:
-            import ./nix/packages.nix {
-              inherit
-                pkgs
-                versions
-                gpuSupport
-                ;
-              lib = pkgs.lib;
-              pythonOverrides = pythonOverridesFor pkgs gpuSupport;
-            };
 
           # Linux packages for Docker image cross-builds
           linuxX86Packages = mkComfyPackages pkgsLinuxX86 { };
@@ -264,10 +265,14 @@
 
       flake = {
         # System-independent lib with custom node helpers
-        lib = import ./nix/lib/custom-nodes.nix {
-          lib = nixpkgs.lib;
-          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Default for lib evaluation
-        };
+        lib =
+          import ./nix/lib/custom-nodes.nix {
+            lib = nixpkgs.lib;
+            pkgs = nixpkgs.legacyPackages.x86_64-linux; # Default for lib evaluation
+          }
+          // {
+            inherit mkComfyPackages;
+          };
 
         overlays.default = final: prev: {
           comfyui-nix = self.legacyPackages.${final.stdenv.hostPlatform.system};
