@@ -36,12 +36,14 @@
         pkgs:
         {
           gpuSupport ? "none",
+          extraPythonDeps ? _: [ ],
         }:
         import ./nix/packages.nix {
           inherit
             pkgs
             versions
             gpuSupport
+            extraPythonDeps
             ;
           lib = pkgs.lib;
           pythonOverrides = pythonOverridesFor pkgs gpuSupport;
